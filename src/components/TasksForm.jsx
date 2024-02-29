@@ -2,6 +2,7 @@ import { useState } from "react"
 import {useDispatch} from 'react-redux'
 import {addTask} from '../features/task/taskSlice'
 import {v4 as uuid} from 'uuid'
+import {useNavigate} from 'react-router-dom'
 
 const TasksForm = () => {
   // vamos a utilizar el estado el cual sera inicializado con un titulo vacio y una descripcion vacia.
@@ -11,6 +12,8 @@ const TasksForm = () => {
   })
 // funcion que nos permitira disparar eventos desde el slice
   const dispatch = useDispatch()
+// funcion que nos permite redirigir la pagina
+  const navigate = useNavigate()
 
   const handleChange = e => {
 // utilizamos el modificador del estado setTask
@@ -28,9 +31,12 @@ const TasksForm = () => {
     //console.log(task)
     dispatch(addTask({
       ...task, // hacemos una copia del estado actual 
-      id: uuid() // generamos a task un uuid unico
+      id: uuid(), // generamos a task un uuid unico
     }))
+// redirige a la ruta principal despues de ejecutar el dispatch
+    navigate('/')
   }
+  
   return (
     <form onSubmit={handleSubmit}>
       <input name="title" type="text" placeholder="title" onChange={handleChange}/>

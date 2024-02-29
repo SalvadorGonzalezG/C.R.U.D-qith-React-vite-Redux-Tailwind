@@ -5,5 +5,11 @@ body{
   align-items: center;
 }
 .taskslist{
+
   background-color: aqua;
+  align-items: center;
+  justify-content: center;
+}
+.delete{
+  background-color: azure;
 }
