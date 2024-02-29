@@ -27,6 +27,16 @@ export const tasksSlice = createSlice({
         addTask: (state, action) => { // añadimos una funcion que nos permita añadir algo
             state.push(action.payload)
         },
+        editTask: (state, action) => {
+// para actualizar se necesita el id, el titulo y la descipcion
+          const {id, title, description} = action.payload
+          const foundTask = state.find(task => task.id === id)
+          if(foundTask){ // comprueba si se encontro la tarea
+// Si se encontro la tarea actualiza el titulo y la descripcion con el valor proporcionado en la accion
+            foundTask.title = title
+            foundTask.description = description
+          }
+        },
 // definimos una funcion llamada deleteTask que toma el estado y una acion como parametros.
         deleteTask: (state, action) => {
 // Busca la taera dentro del estado que coincida con el id proporcionado en la accion.
@@ -35,12 +45,12 @@ export const tasksSlice = createSlice({
 // Si se encontro la tarea, la elimina del estado utilizando splice
                 state.splice(state.indexOf(taskFound), 1)
             }
-        }
+        },
     }
 })
 
 // 
-export const {addTask, deleteTask} = tasksSlice.actions
+export const {addTask, deleteTask, editTask} = tasksSlice.actions
 
 // Exportamos desde tasksSlice su reducer
 export default tasksSlice.reducer

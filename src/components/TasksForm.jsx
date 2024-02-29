@@ -1,8 +1,8 @@
-import { useState } from "react"
-import {useDispatch} from 'react-redux'
-import {addTask} from '../features/task/taskSlice'
+import { useState, useEffect } from "react"
+import {useDispatch, useSelector} from 'react-redux'
+import {addTask, editTask} from '../features/task/taskSlice'
 import {v4 as uuid} from 'uuid'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 
 const TasksForm = () => {
   // vamos a utilizar el estado el cual sera inicializado con un titulo vacio y una descripcion vacia.
@@ -14,6 +14,9 @@ const TasksForm = () => {
   const dispatch = useDispatch()
 // funcion que nos permite redirigir la pagina
   const navigate = useNavigate()
+  const params = useParams()
+  // todas las tareas que tengo en el estado de redux
+  const tasks = useSelector(state => state.tasks)
 
   const handleChange = e => {
 // utilizamos el modificador del estado setTask
@@ -26,21 +29,42 @@ const TasksForm = () => {
   }
   // funcion que evita que se refresque la pagina.
   const handleSubmit = (e) => {
+    
     e.preventDefault()
+    if(params.id){
+      dispatch(editTask(task))
+    } else{
 // mostrar en la consola la tarea actual que tengio en el estado
     //console.log(task)
     dispatch(addTask({
       ...task, // hacemos una copia del estado actual 
       id: uuid(), // generamos a task un uuid unico
     }))
+  }
 // redirige a la ruta principal despues de ejecutar el dispatch
     navigate('/')
   }
+useEffect(()=>{
+  if(params.id) {
+    setTask(tasks.find(tasks => tasks.id === params.id))
+  }
+},[])
   
   return (
     <form onSubmit={handleSubmit}>
-      <input name="title" type="text" placeholder="title" onChange={handleChange}/>
-      <textarea name="description" placeholder="description" onChange={handleChange}></textarea>
+      <input
+       name="title"
+       type="text"
+       placeholder="title" 
+       onChange={handleChange}
+       value = {task.title}/>
+       
+      <textarea 
+       name="description" 
+       placeholder="description" 
+       onChange={handleChange}
+       value={task.description}
+      ></textarea>
       <button > Guardar. </button>
     </form>
   )
