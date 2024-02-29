@@ -8,7 +8,8 @@ function App() {
 
   return (
     <>
-      <div>
+      <div className='bg-zinc-900 h-screen text-white'>
+        <div className='flex items-center justify-center h-full'>
         <Router>
         <Routes>
            <Route path='/' element={<TasksList />} />
@@ -16,6 +17,7 @@ function App() {
            <Route path='/edit-task/:id' element={<TasksForm />} />
         </Routes>
         </Router> 
+        </div>
     </div >
     </>
   )
