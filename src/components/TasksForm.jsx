@@ -1,4 +1,7 @@
 import { useState } from "react"
+import {useDispatch} from 'react-redux'
+import {addTask} from '../features/task/taskSlice'
+import {v4 as uuid} from 'uuid'
 
 const TasksForm = () => {
   // vamos a utilizar el estado el cual sera inicializado con un titulo vacio y una descripcion vacia.
@@ -6,6 +9,9 @@ const TasksForm = () => {
     title: '',
     description: ''
   })
+// funcion que nos permitira disparar eventos desde el slice
+  const dispatch = useDispatch()
+
   const handleChange = e => {
 // utilizamos el modificador del estado setTask
     setTask({
@@ -19,7 +25,11 @@ const TasksForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
 // mostrar en la consola la tarea actual que tengio en el estado
-    console.log(task)
+    //console.log(task)
+    dispatch(addTask({
+      ...task, // hacemos una copia del estado actual 
+      id: uuid() // generamos a task un uuid unico
+    }))
   }
   return (
     <form onSubmit={handleSubmit}>

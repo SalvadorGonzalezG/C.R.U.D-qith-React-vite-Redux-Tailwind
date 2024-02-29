@@ -14,12 +14,6 @@ const initialState = [
         title: "task 2",
         description: 'task 2 descriptión:',
         completed: false
-    },
-    {
-        id: "3",
-        title: "task 3",
-        description: 'task 3 descriptión:',
-        completed: false
     }
 ]
 
@@ -30,9 +24,14 @@ export const tasksSlice = createSlice({
 
     // Con este objeto podremos crear funciones para poder actualizar el initialState
     reducers: {
-
+        addTask: (state, action) => { // añadimos una funcion que nos permita añadir algo
+            state.push(action.payload)
+        }
     }
 })
+
+// 
+export const {addTask} = tasksSlice.actions
 
 // Exportamos desde tasksSlice su reducer
 export default tasksSlice.reducer
