@@ -3,15 +3,16 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import { store } from './app/store.js'
-import {Provider} from 'react-redux'
+import { Provider } from 'react-redux'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // Envolvemos App en Provider para poder hacer uso del estado de forma global.
-  <React.StrictMode>
-    <Provider store={store}>
+  <Provider store={store}>
+    <React.StrictMode>
 
-    <App />
 
-    </Provider>
-  </React.StrictMode>,
+      <App />
+
+    </React.StrictMode>,
+  </Provider>
 )
