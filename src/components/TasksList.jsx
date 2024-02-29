@@ -17,7 +17,7 @@ const handleDelete = (id) => {
     
     <div className='taskslist'>
       <header>
-      <h1>Task 10</h1>
+      <h1>Task {stateTasks.length}</h1>
       <Link to= '/list'>create task</Link>
 
     </header>
