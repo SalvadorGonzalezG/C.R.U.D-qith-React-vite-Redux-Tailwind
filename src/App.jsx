@@ -1,13 +1,11 @@
-import {useSelector} from 'react-redux'
 import TasksForm from './components/TasksForm'
 import TasksList from './components/TasksList'
 
-// useDispatch:
+// useDispatch: Permite desencadenar acciones devuelve una funcion dispacth la cual es la que se ocupara para desencadenar dichas acciones.
 // useSelector: Permite leer datos del estado, toma una funcion como argumento que devuelve la parte del estado que se desea
+
 function App() {
 
-const tasksState = useSelector(state=> state.tasks)
-  console.log(tasksState)  
   return (
     <>
       <div>
